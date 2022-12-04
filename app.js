@@ -12,7 +12,7 @@ const express = require('express')
 const app = express()
 
 //web socket
-const Socket = require('socket.io');
+// const Socket = require('socket.io');
 // const websockets = require('./websockets');
 
 //connect dotenv
@@ -62,31 +62,32 @@ app.use('/', (req,res) => {
     res.send('<h1>404</h1>');
 });
 
-const server = app.listen(process.env.PORT || 3000, function(){
-    console.log("Server is running on port 3000");
+const PORT = process.env.PORT || 3000
+app.listen(PORT, function () {
+    console.log("Server is running on port 3000")
 });
 
-const io = Socket(server);
-let admin;
+// const io = Socket(server);
+// let admin;
 
-io.on('connect', function (socket){
-    socket.on('login', (id_admin)=>{
-        admin = id_admin;
-        socket.emit("admin_id",admin);
-    });
+// io.on('connect', function (socket){
+//     socket.on('login', (id_admin)=>{
+//         admin = id_admin;
+//         socket.emit("admin_id",admin);
+//     });
 
-    socket.emit("admin_id",admin);
+//     socket.emit("admin_id",admin);
 
-    socket.on("admin", () => {
-        console.log('CHECK ADMIN :' + admin);
-        socket.emit("admin", admin);
-    });
+//     socket.on("admin", () => {
+//         console.log('CHECK ADMIN :' + admin);
+//         socket.emit("admin", admin);
+//     });
 
-    socket.on("helpdesk",(id,msg,id_user) => {
-        console.log(msg);
-        socket.to(id).emit("helpdesk_rep",id,msg,id_user);
-    });
-});
+//     socket.on("helpdesk",(id,msg,id_user) => {
+//         console.log(msg);
+//         socket.to(id).emit("helpdesk_rep",id,msg,id_user);
+//     });
+// });
   
 
 
